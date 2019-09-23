@@ -1,0 +1,106 @@
+@import '../../styles.scss';
+
+@mixin ticketHighlighter($val) {
+    i {
+        color: $val;
+    }
+    select {
+        background-color: $val;
+    }
+}
+.dashboard {
+    .user {
+        border-bottom: .2rem solid #333;
+        padding: 2rem 0rem 1rem;
+        margin-bottom: 1rem;
+
+        label {
+            font-size: 1.8rem;
+            i {
+                margin-right: .5rem;
+            }
+        }
+    }
+    .tabs {
+        position: sticky;
+        top: 0rem;
+        z-index: 10;
+        background-color: #fff;
+        box-shadow: 0rem .3rem .3rem 0rem rgba(32,33,36,0.28);
+
+        .tabs__inner {
+            grid-column: 2/span 2;
+            -ms-flex-align: end;
+            align-items: flex-end;
+            display: flex;
+            position: relative;
+    
+            .tabs__tab {
+                font-size: 1.6rem;
+                padding: 1.2rem 2rem;
+                border-bottom: .4rem solid transparent;
+                display: inline-block;
+                margin-right: 2.4rem;
+                text-align: center;
+            }
+    
+            .tabs__tab--selected {
+                background-color: #777;
+                color: #fff;
+            }
+        }
+    }
+    table.table {
+        font-size: 1.4rem;
+        margin-top: 1rem;
+        tr:hover {
+            color: $in_progress;
+            cursor: default;
+        }
+
+        .statuses {
+            color: #fff;
+            padding: .5rem;
+            border: none;
+            border-radius: .4rem;
+            cursor: pointer;
+
+            option {
+                cursor: pointer;
+                background: #fff;
+                color: #000;
+                text-shadow: 0 .1rem 0 rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .in_progress {
+            @include ticketHighlighter($in_progress);
+        }
+        .completed {
+            @include ticketHighlighter($completed);
+        }
+        .not_started {
+            @include ticketHighlighter( $not_started);
+        }
+    }
+
+    .disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #000;
+    }
+
+    .user_in_progress {
+        color: $in_progress;
+    }
+    .user_completed {
+        color: $completed;
+    }
+    .user_not_started {
+        color: $not_started;
+    }
+
+    .align--right {
+        text-align: right;
+    }
+}

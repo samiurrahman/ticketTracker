@@ -1,0 +1,42 @@
+@import '../styles.scss';
+
+.rootContainer {
+    background-color: $bgColor;
+    max-width: 136.6rem;
+    margin: 0 auto;
+    padding-bottom: 3rem;
+    .header {
+        padding: 1rem 1rem 1rem;
+        background-color: $bgColor;
+        h2 {
+            margin: 0;
+            font-size: 2.4rem;
+        }
+    }
+    .body__wrapper {
+        display: grid;
+        grid-template-columns: 6% 94%;
+    
+        .menu {
+            position: relative;
+            height: 7rem;
+            width: 100%;
+            background-color: #fff;
+            label {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                i {
+                    font-size: 2.6rem;
+                    color: $in_progress;
+                }
+            }
+        }
+        .body {
+            padding: 0rem 2rem;
+            background-color: #fff;
+        }
+    }
+
+}

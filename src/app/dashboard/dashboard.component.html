@@ -1,0 +1,81 @@
+<main class="dashboard">
+    <section class="user">
+        <label for="user">
+            <i
+                class="fas fa-user "
+                [ngClass]="userIconStatusClass">
+            </i>
+            User 1
+        </label>
+    </section>
+    <div class="tabs">
+        <div class="tabs__inner">
+            <a
+                class="tabs__tab"
+                fragment="tasks"
+                [routerLink] = "['/dashboard']"
+                [ngClass]="{'tabs__tab--selected': currentTab === 'tasks', 'disabled' : segregatedTickets['tasks']?.length <= '0'}">
+                Tasks ({{ segregatedTickets['tasks']?.length }})
+            </a>
+            <a
+                class="tabs__tab"
+                fragment="bugs"
+                [routerLink] = "['/dashboard']"
+                [ngClass]="{'tabs__tab--selected': currentTab === 'bugs', 'disabled' : segregatedTickets['bugs']?.length <= '0'}">
+                Bugs ({{ this.segregatedTickets['bugs']?.length }})
+            </a>
+            <a
+                class="tabs__tab"
+                fragment="completed"
+                [routerLink] = "['/dashboard']"
+                [ngClass]="{'tabs__tab--selected': currentTab === 'completed', 'disabled' : segregatedTickets['completed']?.length <= '0'}">
+                Completed ({{ this.segregatedTickets['completed']?.length }})
+            </a>
+            <a
+                class="tabs__tab"
+                fragment="in_progress"
+                [routerLink] = "['/dashboard']"
+                [ngClass]="{'tabs__tab--selected': currentTab === 'in_progress', 'disabled' : segregatedTickets['in_progress']?.length <= '0'}">
+                In Progress ({{ this.segregatedTickets['in_progress']?.length }})
+            </a>
+            <a
+                class="tabs__tab"
+                fragment="not_started"
+                [routerLink] = "['/dashboard']"
+                [ngClass]="{'tabs__tab--selected': currentTab === 'not_started', 'disabled' : segregatedTickets['not_started']?.length <= '0'}">
+                Not Started ({{ this.segregatedTickets['not_started']?.length }})
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <tbody>
+            <ng-container *ngIf="segregatedTickets[currentTab]?.length > 0; else noResult">
+                <tr
+                    *ngFor="let ticket of segregatedTickets[currentTab]; index as i"
+                    [ngClass]="statusHighlighter(ticket.Status)">
+                    <td scope="row">
+                        {{ ticket.Id }}
+                    </td>
+                    <td scope="row">
+                        <i class="fas fa-square"></i>
+                    </td>
+                    <td>{{ ticket.Description }}</td>
+                    <td class="align--right">
+                        <form>
+                            <select
+                                [(ngModel)]="ticket.Status"
+                                name="ticket.Status"
+                                (change)="changeStatus($event, ticket.Id, i)"
+                                class="statuses">
+                                <option [value]="status.COMPLETED">Completed</option>
+                                <option [value]="status.IN_PROGRESS">In Progress</option>
+                                <option [value]="status.NOT_STARTED">Not Started</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #noResult>There are no Ticket in {{ currentTab | uppercase}} bucket.</ng-template>
+        </tbody>
+    </table>
+</main>
